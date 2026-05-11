@@ -1,6 +1,11 @@
 C:\Users\Chris\Documents\Masters\C++\Project\Star Hunter\Star Hunter\Actor.cpp;C:\Users\Chris\Documents\Masters\C++\Project\Star Hunter\Star Hunter\x64\Debug\Actor.obj
 C:\Users\Chris\Documents\Masters\C++\Project\Star Hunter\Star Hunter\Controller.cpp;C:\Users\Chris\Documents\Masters\C++\Project\Star Hunter\Star Hunter\x64\Debug\Controller.obj
+C:\Users\Chris\Documents\Masters\C++\Project\Star Hunter\Star Hunter\Enemy.cpp;C:\Users\Chris\Documents\Masters\C++\Project\Star Hunter\Star Hunter\x64\Debug\Enemy.obj
 C:\Users\Chris\Documents\Masters\C++\Project\Star Hunter\Star Hunter\Game.cpp;C:\Users\Chris\Documents\Masters\C++\Project\Star Hunter\Star Hunter\x64\Debug\Game.obj
 C:\Users\Chris\Documents\Masters\C++\Project\Star Hunter\Star Hunter\Level.cpp;C:\Users\Chris\Documents\Masters\C++\Project\Star Hunter\Star Hunter\x64\Debug\Level.obj
 C:\Users\Chris\Documents\Masters\C++\Project\Star Hunter\Star Hunter\main.cpp;C:\Users\Chris\Documents\Masters\C++\Project\Star Hunter\Star Hunter\x64\Debug\main.obj
+C:\Users\Chris\Documents\Masters\C++\Project\Star Hunter\Star Hunter\melee_weapon_component.cpp;C:\Users\Chris\Documents\Masters\C++\Project\Star Hunter\Star Hunter\x64\Debug\melee_weapon_component.obj
 C:\Users\Chris\Documents\Masters\C++\Project\Star Hunter\Star Hunter\Player.cpp;C:\Users\Chris\Documents\Masters\C++\Project\Star Hunter\Star Hunter\x64\Debug\Player.obj
+C:\Users\Chris\Documents\Masters\C++\Project\Star Hunter\Star Hunter\Projectile.cpp;C:\Users\Chris\Documents\Masters\C++\Project\Star Hunter\Star Hunter\x64\Debug\Projectile.obj
+C:\Users\Chris\Documents\Masters\C++\Project\Star Hunter\Star Hunter\ranged_weapon_component.cpp;C:\Users\Chris\Documents\Masters\C++\Project\Star Hunter\Star Hunter\x64\Debug\ranged_weapon_component.obj
+C:\Users\Chris\Documents\Masters\C++\Project\Star Hunter\Star Hunter\sprite_metadata.cpp;C:\Users\Chris\Documents\Masters\C++\Project\Star Hunter\Star Hunter\x64\Debug\sprite_metadata.obj

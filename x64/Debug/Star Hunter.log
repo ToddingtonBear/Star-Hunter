@@ -1,10 +1,16 @@
 ﻿  Actor.cpp
-C:\Users\Chris\Documents\Masters\C++\Project\Star Hunter\Star Hunter\Actor.cpp(56,40): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-C:\Users\Chris\Documents\Masters\C++\Project\Star Hunter\Star Hunter\Actor.cpp(56,28): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+C:\Users\Chris\Documents\Masters\C++\Project\Star Hunter\Star Hunter\Actor.cpp(80,40): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+C:\Users\Chris\Documents\Masters\C++\Project\Star Hunter\Star Hunter\Actor.cpp(80,28): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
   Controller.cpp
+  Enemy.cpp
   Game.cpp
   Level.cpp
-  Player.cpp
   main.cpp
+  melee_weapon_component.cpp
+  Player.cpp
+C:\Users\Chris\Documents\Masters\C++\Project\Star Hunter\Star Hunter\Player.cpp(89,40): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+C:\Users\Chris\Documents\Masters\C++\Project\Star Hunter\Star Hunter\Player.cpp(89,28): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+  ranged_weapon_component.cpp
   Generating Code...
+LINK : warning LNK4098: defaultlib 'MSVCRT' conflicts with use of other libs; use /NODEFAULTLIB:library
   Star Hunter.vcxproj -> C:\Users\Chris\Documents\Masters\C++\Project\Star Hunter\x64\Debug\Star Hunter.exe

@@ -1,17 +1,51 @@
 #include "actor.h"
+#include "sprite_metadata.h"
 #include <iostream>
 
-Actor::Actor(float x, float y, const std::string& sprPath, float spd, int hp, int dmg)
-    : position({ x, y }), speed(spd), spritePath(sprPath), health(hp), meleeDamage(dmg) {
-    sprite = LoadTexture(sprPath.c_str());
+Actor::Actor(float x, float y, SpriteType spriteType, AnimationType animType, float spd, int hp, int dmg)
+    : position({ x, y }), speed(spd), spriteType(spriteType), currentAnimType(animType), health(hp), meleeDamage(dmg) {
+    // Look up the sprite metadata
+    const SpriteMetadata& spriteMeta = SpriteMetadataDB::metadata.at(spriteType);
+    // Look up the animation metadata
+    const AnimationMetadata& animMeta = spriteMeta.animations.at(animType);
+
+    // Combine base path and animation path
+    std::string fullPath = spriteMeta.basePath + animMeta.path;
+    sprite = LoadTexture(fullPath.c_str());
+
     if (sprite.id == 0) {
-        std::cerr << "Failed to load sprite: " << sprPath << std::endl;
+        std::cerr << "Failed to load sprite: " << fullPath << std::endl;
         frameWidth = 10;
         frameHeight = 10;
     }
     else {
+        frameCount = animMeta.frameCount;
         frameWidth = sprite.width / frameCount;
         frameHeight = sprite.height;
+        std::cout << "Sprite loaded: " << fullPath
+            << " (Frames: " << frameCount
+            << ", Frame size: " << frameWidth << "x" << frameHeight << ")" << std::endl;
+    }
+}
+
+void Actor::SetAnimation(AnimationType animType) {
+    if (currentAnimType == animType) return; // No change needed
+
+    // set incoming type as current type and fetch its data
+    currentAnimType = animType;
+    const SpriteMetadata& spriteMeta = SpriteMetadataDB::metadata.at(spriteType);
+    const AnimationMetadata& animMeta = spriteMeta.animations.at(animType);
+
+    // Reload the sprite for the new animation
+    std::string fullPath = spriteMeta.basePath + animMeta.path;
+    UnloadTexture(sprite);
+    sprite = LoadTexture(fullPath.c_str());
+
+    if (sprite.id != 0) {
+        frameCount = animMeta.frameCount;
+        frameWidth = sprite.width / frameCount;
+        frameHeight = sprite.height;
+        currentFrame = 0; // Reset to the first frame
     }
 }
 
