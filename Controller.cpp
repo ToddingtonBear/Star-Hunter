@@ -11,12 +11,12 @@ void Controller::HandleInput() {
     if (IsKeyDown(KEY_D)) {     // RIGHT
         player->position.x += player->speed;
         player->isMoving = true;
-        player->SetFacingDirection(true);
+        //player->SetFacingDirection(true);
     }
     if (IsKeyDown(KEY_A)) {     // LEFT
         player->position.x -= player->speed;
         player->isMoving = true;
-        player->SetFacingDirection(false);
+        //player->SetFacingDirection(false);
     }
     if (IsKeyDown(KEY_W)) {     // UP
         player->position.y -= player->speed;

@@ -65,7 +65,8 @@ void Entity::Draw() {
 
         // Flip the sprite horizontally if facing left
         if (!facingRight) {
-            destRect.width = -destRect.width; // Negative width flips the sprite
+            //destRect.width = -destRect.width; // Negative width flips the sprite
+            sourceRect.width = -sourceRect.width; // Negative width flips the sprite
         }
 
         DrawTexturePro(sprite, sourceRect, destRect, origin, rotation, tint);
@@ -77,10 +78,36 @@ void Entity::Draw() {
 }
 
 void Entity::SetAnimation(AnimationType animType) {
+    if (currentAnimType == animType) return; // Skip if no change
+
     currentAnimType = animType;
-    currentFrame = 0; // Reset to the first frame of the new animation
+    currentFrame = 0; // Reset to the first frame
+
+    // Reload the sprite for the new animation
+    const SpriteMetadata& spriteMeta = SpriteMetadataDB::metadata.at(spriteType);
+    const AnimationMetadata& animMeta = spriteMeta.animations.at(animType);
+    std::string fullPath = spriteMeta.basePath + animMeta.path;
+
+    // Unload the old sprite
+    if (sprite.id != 0) {
+        UnloadTexture(sprite);
+    }
+
+    // Load the new sprite
+    sprite = LoadTexture(fullPath.c_str());
+    if (sprite.id == 0) {
+        std::cerr << "Failed to load sprite for animation: " << fullPath << std::endl;
+        frameWidth = 10;
+        frameHeight = 10;
+    }
+    else {
+        frameCount = animMeta.frameCount;
+        frameWidth = sprite.width / frameCount;
+        frameHeight = sprite.height;
+    }
 }
 
 void Entity::SetFacingDirection(bool right) {
     facingRight = right;
+    std::cout << "Facing: " << (facingRight ? "RIGHT" : "LEFT") << std::endl;
 }

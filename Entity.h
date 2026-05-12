@@ -15,7 +15,7 @@ public:
     int frameCount = 4;      // Total number of frames in the sprite sheet
     int frameWidth;          // Width of a single frame
     int frameHeight;         // Height of a single frame
-    float frameDelay = 0.5f; // Time (in seconds) between animation frames
+    float frameDelay = 0.1f; // Time (in seconds) between animation frames
     float frameTimer = 0.0f; // Timer for animation frame updates
 
     // --- Sprite Direction ---

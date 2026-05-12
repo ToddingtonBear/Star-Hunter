@@ -8,7 +8,7 @@ void Game::Run() {
     while (!WindowShouldClose()) {
         level.Update();
         BeginDrawing();
-        ClearBackground(BLACK);
+        ClearBackground(WHITE);
         level.Draw();
         EndDrawing();
     }

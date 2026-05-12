@@ -11,8 +11,8 @@ Level::Level() {
     controller = Controller(player);
 
     // Add enemies (pass the player pointer for AI targeting)
-    //actors.push_back(new Enemy(200, 200, SpriteType::DESTROYER, AnimationType::IDLE, 2.0f, 50, player));
-    //actors.push_back(new Enemy(600, 300, SpriteType::INFANTRYMAN, AnimationType::IDLE, 2.5f, 60, player));
+    actors.push_back(new Enemy(200, 200, SpriteType::DESTROYER, AnimationType::IDLE, 2.0f, 50, player));
+    actors.push_back(new Enemy(600, 300, SpriteType::INFANTRYMAN, AnimationType::IDLE, 2.5f, 60, player));
 }
 
 Level::~Level() {
