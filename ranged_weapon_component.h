@@ -29,7 +29,7 @@ public:
 
     RangedWeaponComponent(RangedWeaponType type);
     void SetWeaponType(RangedWeaponType newType);
-    void Shoot(Actor* attacker, std::vector<Actor*>& projectiles, Vector2 direction);
+    void Shoot(Actor* attacker, std::vector<Projectile*>& projectiles, Vector2 direction);
 
 private:
     static const std::unordered_map<RangedWeaponType, RangedWeaponProperties> rangedWeaponProperties;

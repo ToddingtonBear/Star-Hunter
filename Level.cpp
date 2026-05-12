@@ -1,103 +1,101 @@
-#include "level.h"
+#include "Level.h"
 #include "raylib.h"
 #include <cmath>
 
-Level::Level()
-    : player(new Player(400, 225, SpriteType::SOLDIER_1, AnimationType::IDLE, 2.0f, 100, 20)),
-    controller(*player) {  // Initialize controller with *player (dereference the pointer)
+Level::Level() {
+    // Create the player and add to actors
+    player = new Player(400, 225, SpriteType::SOLDIER_1, AnimationType::IDLE, 5.0f, 100, actors, projectiles);
     actors.push_back(player);
 
-    // Add enemies
-    actors.push_back(new Enemy(200, 200, SpriteType::ZOMBIE_MAN, AnimationType::IDLE, 2.0f, player, 50, 10));
-    actors.push_back(new Enemy(600, 300, SpriteType::ZOMBIE_WOMAN, AnimationType::IDLE, 2.5f, player, 60, 15));
-    actors.push_back(new Enemy(750, 600, SpriteType::WILD_ZOMBIE, AnimationType::IDLE, 1.5f, player, 60, 15));
+    // Initialize the controller with the player pointer
+    controller = Controller(player);
+
+    // Add enemies (pass the player pointer for AI targeting)
+    //actors.push_back(new Enemy(200, 200, SpriteType::DESTROYER, AnimationType::IDLE, 2.0f, 50, player));
+    //actors.push_back(new Enemy(600, 300, SpriteType::INFANTRYMAN, AnimationType::IDLE, 2.5f, 60, player));
 }
 
 Level::~Level() {
+    // Clean up actors
     for (Actor* actor : actors) {
         delete actor;
     }
     actors.clear();
 
-    //for (Projectile* projectile : projectiles) {
-    //    delete projectile;
-    //}
-    //projectiles.clear();
+    // Clean up projectiles
+    for (Projectile* projectile : projectiles) {
+        delete projectile;
+    }
+    projectiles.clear();
 }
 
 void Level::Update() {
+    // Handle player input
     controller.HandleInput();
-    player->MeleeAttack(actors); // Pass all actors to check for melee hits
 
-    // Update all actors
+    // Player-specific attacks
+    player->Melee(actors);
+
+    // Update all actors (player, enemies)
     for (Actor* actor : actors) {
         actor->Update();
     }
 
-    //// Update projectiles
-    //for (auto it = projectiles.begin(); it != projectiles.end(); ) {
-    //    (*it)->Update();
-    //    if (!(*it)->IsActive()) {
-    //        delete* it;
-    //        it = projectiles.erase(it);
-    //    }
-    //    else {
-    //        ++it;
-    //    }
-    //}
+    // Update all projectiles
+    for (Projectile* projectile : projectiles) {
+        projectile->Update();
+    }
 
+    // Check for collisions
     CheckCollisions();
 }
 
 void Level::Draw() {
+    // Draw all actors
     for (Actor* actor : actors) {
         actor->Draw();
     }
 
-    //for (Projectile* projectile : projectiles) {
-    //    projectile->Draw();
-    //}
+    // Draw all projectiles
+    for (Projectile* projectile : projectiles) {
+        projectile->Draw();
+    }
 }
 
 void Level::CheckCollisions() {
-    // Player vs. Enemies
+    // --- Player vs. Enemies ---
     for (Actor* actor : actors) {
         if (actor != player && actor->IsAlive() && player->IsAlive()) {
             float dx = player->position.x - actor->position.x;
             float dy = player->position.y - actor->position.y;
             float distance = sqrt(dx * dx + dy * dy);
-
             if (distance < 20.0f) { // Collision threshold
-                player->TakeDamage(actor->meleeDamage); // Use actor->damage instead of actor->meleeDamage
+                player->TakeDamage(10); // Fixed damage for now (or use actor->damage if available)
             }
         }
     }
 
-    //// Projectiles vs. Enemies
-    //for (auto it = projectiles.begin(); it != projectiles.end(); ) {
-    //    Projectile* projectile = *it;
-    //    bool hit = false;
+    // --- Projectiles vs. Actors ---
+    for (size_t i = 0; i < projectiles.size(); ) {
+        Projectile* projectile = projectiles[i];
+        if (!projectile->IsActive()) {
+            // Remove inactive projectiles
+            delete projectile;
+            projectiles.erase(projectiles.begin() + i);
+            continue; // Skip the rest of the loop for this iteration
+        }
 
-    //    for (Actor* actor : actors) {
-    //        if (actor != player && actor->IsAlive() && projectile->IsActive()) {
-    //            float dx = projectile->position.x - actor->position.x;
-    //            float dy = projectile->position.y - actor->position.y;
-    //            float distance = sqrt(dx * dx + dy * dy);
-
-    //            if (distance < 20.0f) { // Collision threshold
-    //                actor->TakeDamage(projectile->damage);
-    //                hit = true;
-    //                break;
-    //            }
-    //        }
-    //    }
-
-    //    if (hit) {
-    //        delete projectile;
-    //        it = projectiles.erase(it);
-    //    }
-    //    else {
-    //        ++it;
-    //    }
-    //}
+        for (Actor* actor : actors) {
+            if (actor->IsAlive() && projectile->IsActive()) {
+                float dx = projectile->position.x - actor->position.x;
+                float dy = projectile->position.y - actor->position.y;
+                float distance = sqrt(dx * dx + dy * dy);
+                if (distance < 20.0f) { // Collision threshold
+                    actor->TakeDamage(projectile->damage);
+                    projectile->isActive = false; // Deactivate the projectile
+                }
+            }
+        }
+        i++; // Only increment if we didn't erase
+    }
 }

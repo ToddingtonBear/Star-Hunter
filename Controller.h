@@ -1,10 +1,12 @@
 #pragma once
-#include "player.h"
+#include "Player.h"
 
 class Controller {
 public:
-    Player& player;
+    Player* player; // Pointer to the player
 
-    Controller(Player& p);
-    void HandleInput();
+    Controller() : player(nullptr) {}
+    Controller(Player* p);
+
+    void HandleInput(); // Handle ALL input (movement, attacks, etc.)
 };

@@ -1,43 +1,27 @@
 #pragma once
-#include "raylib.h"
-#include "sprite_types.h"
-#include "melee_weapon_component.h"
-#include "ranged_weapon_component.h"
-#include <string>
+#include "Entity.h"
 
+// Forward declarations
 class MeleeWeaponComponent;
 class RangedWeaponComponent;
 
-class Actor {
+class Actor : public Entity {
 public:
-    // Graphics
-    Vector2 position;
-    Texture2D sprite;
-    SpriteType spriteType;
-    AnimationType currentAnimType;
+    // --- Game Logic Properties ---
+    int health;                     // Health points
+    float speed;                    // Movement speed
 
-    // Stats
-    int health;
-    int meleeDamage; 
-    float speed;
+    // --- Weapon Components ---
+    MeleeWeaponComponent* meleeWeapon;   // Optional melee weapon
+    RangedWeaponComponent* rangedWeapon; // Optional ranged weapon
 
-    // Attack components
-    MeleeWeaponComponent* meleeWeapon;
-    RangedWeaponComponent* rangedWeapon;
-
-    // Animation members
-    int currentFrame = 0;
-    int frameCount = 4;
-    int frameWidth;
-    int frameHeight;
-    float frameDelay = 0.1f;
-    float frameTimer = 0.0f;
-
-    Actor(float x, float y, SpriteType type, AnimationType animType, float spd, int hp, int dmg);
+    // --- Constructor/Destructor ---
+    Actor(float x, float y, SpriteType type, AnimationType animType, float spd, int hp);
     virtual ~Actor();
-    virtual void Update();
-    virtual void Draw();
-    virtual void SetAnimation(AnimationType animType);
-    virtual void TakeDamage(int amount);
-    bool IsAlive() const;
+
+    // --- Game Logic Methods ---
+    virtual void Update();          // Update game logic (e.g., cooldowns)
+    virtual void Draw();            // Delegate to Entity::Draw() (handles flipping/animation)
+    virtual void TakeDamage(int amount); // Reduce health
+    bool IsAlive() const;           // Check if health > 0
 };

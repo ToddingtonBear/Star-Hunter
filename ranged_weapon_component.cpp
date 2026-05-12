@@ -21,11 +21,10 @@ void RangedWeaponComponent::SetWeaponType(RangedWeaponType newType) {
     type = newType;
 }
 
-void RangedWeaponComponent::Shoot(Actor* attacker, std::vector<Actor*>& projectiles, Vector2 direction) {
-    if (cooldownTimer > 0.0f) return; // Still on cooldown
+void RangedWeaponComponent::Shoot(Actor* attacker, std::vector<Projectile*>& projectiles, Vector2 direction) {
+    if (cooldownTimer > 0.0f) return;
 
-    // Get weapon properties from the lookup table
-    RangedWeaponProperties properties = rangedWeaponProperties.at(type);
+    const RangedWeaponProperties& props = rangedWeaponProperties.at(type);
 
     // Spawn projectile slightly offset from attacker
     Vector2 spawnPos = {
@@ -33,14 +32,15 @@ void RangedWeaponComponent::Shoot(Actor* attacker, std::vector<Actor*>& projecti
         attacker->position.y + direction.y * 20
     };
 
-    //Projectile* projectile = new Projectile(
-    //    spawnPos.x, spawnPos.y,
-    //    "assets/Sprites/Projectiles/Bullet.png",
-    //    properties.projectileSpeed,
-    //    properties.damage,
-    //    direction
-    //);
-    //projectiles.push_back(projectile);
+    Projectile* projectile = new Projectile(
+        spawnPos.x, spawnPos.y,
+        SpriteType::SOLDIER_3,  // Replace with your projectile sprite type
+        AnimationType::IDLE,    // Replace with your projectile animation type
+        props.projectileSpeed,
+        props.damage,
+        direction
+    );
+    projectiles.push_back(projectile);
 
-    cooldownTimer = properties.cooldown; // Reset cooldown
+    cooldownTimer = props.cooldown;
 }
