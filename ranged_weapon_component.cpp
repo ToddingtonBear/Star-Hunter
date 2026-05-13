@@ -1,6 +1,7 @@
 #include "ranged_weapon_component.h"
 #include "actor.h"
 #include "projectile.h"
+#include "Level.h"
 #include <cmath>
 #include <unordered_map>
 
@@ -21,8 +22,8 @@ void RangedWeaponComponent::SetWeaponType(RangedWeaponType newType) {
     type = newType;
 }
 
-void RangedWeaponComponent::Shoot(Actor* attacker, std::vector<Projectile*>& projectiles, Vector2 direction) {
-    if (cooldownTimer > 0.0f) return;
+Projectile* RangedWeaponComponent::CreateProjectile(Actor* attacker, Vector2 direction) {
+    if (cooldownTimer > 0.0f) return nullptr;
 
     const RangedWeaponProperties& props = rangedWeaponProperties.at(type);
 
@@ -40,7 +41,7 @@ void RangedWeaponComponent::Shoot(Actor* attacker, std::vector<Projectile*>& pro
         props.damage,
         direction
     );
-    projectiles.push_back(projectile);
 
     cooldownTimer = props.cooldown;
+    return projectile;
 }

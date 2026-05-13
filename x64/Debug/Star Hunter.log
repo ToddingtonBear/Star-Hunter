@@ -1,2 +1,8 @@
-﻿  Level.cpp
+﻿  Actor.cpp
+  Player.cpp
+C:\Users\Chris\Documents\Masters\C++\Project\Star Hunter\Star Hunter\Player.cpp(54,58): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+C:\Users\Chris\Documents\Masters\C++\Project\Star Hunter\Star Hunter\Player.cpp(54,46): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+C:\Users\Chris\Documents\Masters\C++\Project\Star Hunter\Star Hunter\Player.cpp(54,34): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+C:\Users\Chris\Documents\Masters\C++\Project\Star Hunter\Star Hunter\Player.cpp(54,22): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+  Generating Code...
   Star Hunter.vcxproj -> C:\Users\Chris\Documents\Masters\C++\Project\Star Hunter\x64\Debug\Star Hunter.exe

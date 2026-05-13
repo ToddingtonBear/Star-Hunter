@@ -4,15 +4,15 @@
 
 Level::Level() {
     // Create the player and add to actors
-    player = new Player(400, 225, SpriteType::SOLDIER_1, AnimationType::IDLE, 5.0f, 100, actors, projectiles);
+    player = new Player(this, 400, 225, SpriteType::SOLDIER_1, AnimationType::IDLE, 5.0f, 100, actors, projectiles);
     actors.push_back(player);
 
     // Initialize the controller with the player pointer
     controller = Controller(player);
 
     // Add enemies (pass the player pointer for AI targeting)
-    actors.push_back(new Enemy(200, 200, SpriteType::DESTROYER, AnimationType::IDLE, 2.0f, 50, player));
-    actors.push_back(new Enemy(600, 300, SpriteType::INFANTRYMAN, AnimationType::IDLE, 2.5f, 60, player));
+    //actors.push_back(new Enemy(this, 200, 200, SpriteType::DESTROYER, AnimationType::IDLE, 2.0f, 50, player));
+    //actors.push_back(new Enemy(this, 600, 300, SpriteType::INFANTRYMAN, AnimationType::IDLE, 2.5f, 60, player));
 }
 
 Level::~Level() {
@@ -34,7 +34,7 @@ void Level::Update() {
     controller.HandleInput();
 
     // Player-specific attacks
-    player->Melee(actors);
+    //player->Melee(actors);
 
     // Update all actors (player, enemies)
     for (Actor* actor : actors) {
@@ -98,4 +98,8 @@ void Level::CheckCollisions() {
         }
         i++; // Only increment if we didn't erase
     }
+}
+
+void Level::AddProjectile(Projectile* projectile) {
+    projectiles.push_back(projectile);
 }

@@ -27,7 +27,11 @@ public:
     void SetWeaponType(MeleeWeaponType newType);
 
     // Attack all targets within range
-    void Attack(Actor* attacker, std::vector<Actor*>& targets);
+    void Melee(Actor* attacker, std::vector<Actor*>& targets);
+
+    float GetRange() const {
+        return meleeWeaponProperties.at(type).range;
+    }
 
 private:
     // Static lookup table for melee weapon properties (shared across all instances)

@@ -1,10 +1,12 @@
 #include "Enemy.h"
 #include "raylib.h"
 #include "Player.h"
+#include "melee_weapon_component.h"
+#include "ranged_weapon_component.h"
 #include <cmath> 
 
-Enemy::Enemy(float x, float y, SpriteType type, AnimationType animType, float spd, int hp, Player* player)
-    : Actor(x, y, type, animType, spd, hp),
+Enemy::Enemy(Level* l, float x, float y, SpriteType type, AnimationType animType, float spd, int hp, Player* player)
+    : Actor(l, x, y, type, animType, spd, hp),
     player(player) {
 }
 
@@ -20,8 +22,19 @@ void Enemy::Update() {
             position.x += (dx / distance) * speed;
             position.y += (dy / distance) * speed;
 
+            SetState(ActorState::WALKING);
+
             // Set facing direction based on movement (left/right)
             SetFacingDirection(dx > 0);
+        }
+
+        // --- Attacks (Enemy targets ONLY the player) ---
+        //if (meleeWeapon && distance < meleeWeapon->GetRange()) { 
+        //    Melee({ player }); // Pass ONLY the player as a target
+        //}
+        if (rangedWeapon && distance < rangedWeapon->GetRange()) { 
+            Vector2 direction = { dx / distance, dy / distance };
+            Shoot(direction); // Shoot toward player
         }
     }
 

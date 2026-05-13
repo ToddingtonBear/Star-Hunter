@@ -8,7 +8,7 @@ public:
     Player* player; // Pointer to the player for AI (chasing)
 
     // Constructor: x, y, sprite type, animation type, speed, health, target player
-    Enemy(float x, float y, SpriteType type, AnimationType animType, float spd, int hp, Player* player);
+    Enemy(Level* l, float x, float y, SpriteType type, AnimationType animType, float spd, int hp, Player* player);
     void Update() override; // Chase the player and update AI
     void Draw() override;   // Delegate to Actor::Draw() (handles flipping/animation)
 };

@@ -20,7 +20,7 @@ void MeleeWeaponComponent::SetWeaponType(MeleeWeaponType newType) {
     cooldownTimer = 0.0f;
 }
 
-void MeleeWeaponComponent::Attack(Actor* attacker, std::vector<Actor*>& targets) {
+void MeleeWeaponComponent::Melee(Actor* attacker, std::vector<Actor*>& targets) {
     if (cooldownTimer > 0.0f) return; // Still on cooldown
 
     // Get weapon properties from the lookup table
