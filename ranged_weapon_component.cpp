@@ -25,6 +25,8 @@ void RangedWeaponComponent::SetWeaponType(RangedWeaponType newType) {
 Projectile* RangedWeaponComponent::CreateProjectile(Actor* attacker, Vector2 direction) {
     if (cooldownTimer > 0.0f) return nullptr;
 
+    attacker->SetState(ActorState::SHOOTING);
+
     const RangedWeaponProperties& props = rangedWeaponProperties.at(type);
 
     // Spawn projectile slightly offset from attacker

@@ -18,9 +18,17 @@ enum class ActorState {
     DYING
 };
 
+enum class ActorTeam {
+    SURVIVOR,   // Friendly human survivors
+    BANDIT,     // Cannibal human survivors
+    INFECTED,   // Zombies
+    HUNTER      // Robot alien invaders
+};
+
 class Actor : public Entity {
 protected: 
     Level* level;
+    ActorTeam team;
 public:
     // --- Game Logic Properties ---
     int health;                     // Health points
@@ -33,7 +41,7 @@ public:
     RangedWeaponComponent* rangedWeapon; // Optional ranged weapon
 
     // --- Constructor/Destructor ---
-    Actor(Level* l, float x, float y, SpriteType type, AnimationType animType, float spd, int hp);
+    Actor(Level* l, float x, float y, SpriteType type, AnimationType animType, float spd, int hp, ActorTeam t);
     virtual ~Actor();
 
     // --- Game Logic Methods ---
@@ -42,8 +50,9 @@ public:
     void SetState(ActorState newState); // Update the actor's state and animation
     virtual void TakeDamage(int amount); // Reduce health
     bool IsAlive() const;           // Check if health > 0
+    ActorTeam GetTeam() const;      // Get team of actor
 
     // --- Attack Methods ---
-    //void Melee(std::vector<Actor*>& targets);
+    void Melee();
     void Shoot(Vector2 direction);
 };

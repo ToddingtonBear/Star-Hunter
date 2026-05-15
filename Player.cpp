@@ -4,17 +4,14 @@
 #include"ranged_weapon_component.h"
 #include <cmath>
 
-Player::Player(Level* l, float x, float y, SpriteType type, AnimationType animType, float spd, int hp,
-    std::vector<Actor*>& actors, std::vector<Projectile*>& projectiles)
-    : Actor(l, x, y, type, animType, spd, hp),
+Player::Player(Level* l, float x, float y, SpriteType type, AnimationType animType, float spd, int hp)
+    : Actor(l, x, y, type, animType, spd, hp, ActorTeam::SURVIVOR),
     isMoving(false),
     meleeRange(30.0f),
     isAttacking(false),
     attackCooldown(0.5f),
     attackTimer(0.0f),
-    aimingDirection({ 1.0f, 0.0f }),
-    actors(&actors),
-    projectiles(&projectiles) {
+    aimingDirection({ 1.0f, 0.0f }){
     // Initialize default weapons
     meleeWeapon = new MeleeWeaponComponent(MeleeWeaponType::KNIFE);
     rangedWeapon = new RangedWeaponComponent(RangedWeaponType::PISTOL);

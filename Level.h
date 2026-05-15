@@ -22,4 +22,6 @@ public:
     void CheckCollisions();
 
     void AddProjectile(Projectile* projectile);
+    Actor* FindClosestEnemy(Actor* self) const;
+    std::vector<Actor*>& GetActors();
 };

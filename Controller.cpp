@@ -1,5 +1,6 @@
 #include "Controller.h"
 #include "raylib.h"
+#include <iostream>
 
 Controller::Controller(Player* p) : player(p) {}
 
@@ -38,9 +39,10 @@ void Controller::HandleInput() {
     }
 
     // --- Attack Input ---
-    //if (IsMouseButtonPressed(MOUSE_RIGHT_BUTTON)) {
-    //    player->Melee(*player->actors);
-    //}
+    if (IsMouseButtonPressed(MOUSE_RIGHT_BUTTON)) {
+        std::cout << "MELEE pressed" << std::endl;
+        player->Melee();
+    }
     if (IsMouseButtonPressed(MOUSE_LEFT_BUTTON)) {
         player->Shoot(player->aimingDirection);
     }

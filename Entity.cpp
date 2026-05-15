@@ -109,5 +109,4 @@ void Entity::SetAnimation(AnimationType animType) {
 
 void Entity::SetFacingDirection(bool right) {
     facingRight = right;
-    std::cout << "Facing: " << (facingRight ? "RIGHT" : "LEFT") << std::endl;
 }

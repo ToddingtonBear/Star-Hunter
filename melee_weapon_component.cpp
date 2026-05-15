@@ -1,11 +1,12 @@
 #include "melee_weapon_component.h"
 #include "actor.h"
 #include <cmath>
+#include <iostream>
 
 // Lookup table for melee weapon properties
 const std::unordered_map<MeleeWeaponType, MeleeWeaponProperties> MeleeWeaponComponent::meleeWeaponProperties = {
-    {MeleeWeaponType::HAND, {5, 5.0f, 0.5f}}, // Damage, range, cooldown
-    {MeleeWeaponType::KNIFE,   {20, 7.0f, 0.6f}},
+    {MeleeWeaponType::HAND, {5, 120.0f, 0.5f}}, // Damage, range, cooldown
+    {MeleeWeaponType::KNIFE,   {20, 150.0f, 0.6f}},
 };
 
 MeleeWeaponComponent::MeleeWeaponComponent(MeleeWeaponType type)
@@ -21,14 +22,19 @@ void MeleeWeaponComponent::SetWeaponType(MeleeWeaponType newType) {
 }
 
 void MeleeWeaponComponent::Melee(Actor* attacker, std::vector<Actor*>& targets) {
+    std::cout << "COOLDOWN check" << std::endl;
     if (cooldownTimer > 0.0f) return; // Still on cooldown
+
+    attacker->SetState(ActorState::MELEEING);
 
     // Get weapon properties from the lookup table
     const MeleeWeaponProperties& props = meleeWeaponProperties.at(type);
 
+    ActorTeam friendlyTeam = attacker->GetTeam();
     // Check all targets for hits
     for (Actor* target : targets) {
-        if (target == attacker || !target->IsAlive()) continue;
+        // If target is dead, on the same team as attacker, or is the attacker, skip
+        if (!target->IsAlive() || target->GetTeam() == friendlyTeam || target == attacker ) continue;
 
         float dx = target->position.x - attacker->position.x;
         float dy = target->position.y - attacker->position.y;
@@ -40,4 +46,5 @@ void MeleeWeaponComponent::Melee(Actor* attacker, std::vector<Actor*>& targets) 
     }
 
     cooldownTimer = props.cooldown; // Reset cooldown
+    std::cout << "MELEE!!!!!!!!!!!!!!!" << std::endl;
 }

@@ -37,7 +37,7 @@ const std::unordered_map<SpriteType, SpriteMetadata> SpriteMetadataDB::metadata 
     {
         SpriteType::SOLDIER_3,
         {
-            "assets/Sprites/Players/Soldier_/",
+            "assets/Sprites/Players/Soldier_3/",
             {
                 {AnimationType::IDLE,   {"Idle.png", 7}},
                 {AnimationType::WALK,   {"Walk.png", 7}},
